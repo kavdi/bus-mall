@@ -1,4 +1,6 @@
-# Developer Stories
+# Stories
+
+Developer:
 As a developer there are certain aspects of the project I would like to concentrate on.
 
   1. I want to make sure the user has a clear understanding of what is expected of them.
@@ -6,3 +8,12 @@ As a developer there are certain aspects of the project I would like to concentr
   3. I want to meet all requirements set by the marketing team for the page.
   4. Have readable efficient clean DRY code that any developer can read it easily.
   5. I want to style the page so it is attractive to the user.
+
+Marketing:
+As marketers we want to make sure that certain goals are met with the page.
+
+  1. We want the user to have clear concise instructions on what the y have to do.
+  2. We want to know what items are selected and how many times that certain item was selected.
+  3. We want to know how many times each item was shown.
+  4. we want to know what products are the most attractive to clients.
+  
