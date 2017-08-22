@@ -1,7 +1,6 @@
 'use strict';
 var display = [];
 var options = [];
-// var recycle = [];
 
 function Pics (name, source, timesShown, timesClicked){
   this.name = name;
@@ -27,7 +26,7 @@ new Pics('pen', 'assets/pen.jpg', 0, 0);
 new Pics('petSweep', 'assets/pet-sweep.jpg', 0, 0);
 new Pics('scissors', 'assets/scissors.jpg', 0, 0);
 new Pics('shark', 'assets/shark.jpg', 0, 0);
-new Pics('sweep', 'assets/sweep.jpg', 0, 0);
+new Pics('sweep', 'assets/sweep.png', 0, 0);
 new Pics('tauntaun', 'assets/tauntaun.jpg', 0, 0);
 new Pics('unicorn', 'assets/unicorn.jpg', 0, 0);
 new Pics('usb', 'assets/usb.gif', 0, 0);
@@ -42,47 +41,27 @@ var showPic = function(name, source, id){
   pic.src = placeholder.source;
   data.appendChild(pic);
 };
-// var showPictures = function(source, picName, id){
-//   var getTable = document.getElementById('pictures');
-//   var getRow = document.createElement('tr');
-//   getTable.appendChild(getRow);
-//   var setPicture = document.createElement('td');
-//   setPicture.ClassName = 'img';
-//   getRow.appendChild(setPicture);
-//   var insert = document.createElement('img');
-//   element.setAttribute('src', source);
-//   element.setAttribute('class', picName);
-//   element.setAttribute('name', id);
-//   setPicture.appendChild(insert);
-// };
 
 for (var i = 0; i < 3; i++){
   var rndmPic = Math.floor(Math.random() * options.length);
   var placeholder = options[rndmPic];
   display.push(placeholder);
-  showPic();
+  showPic(display[i].name, display[i].source, display[i].name);
+}
+// options.splice(rndmPic,1);
+// options.push(display);
 
-
-  // options.splice(rndmPic, 1);
-  // showPictures(Pics.source, 'img', Pics.name);
+var cyclePics = function(){
+  for (var i = 0; i < 3; i++){
+    var rndmPic = Math.floor(Math.random() * options.length);
+    var placeholder = options[rndmPic];
+    if (placeholder.includes(display[i])){
+      var rndmPic = Math.floor(Math.random() * options.length);
+    } else {
+      display = [];
+      display.push(placeholder);
+      showPic();
+    }
+  }
 };
 console.log(display);
-
-
-// var newOptions = function(){
-//   for (var x = 0; x < 3; x++){
-//     recycle.push(display[0]);
-//     console.log(recycle);
-//     display = [];
-//     console.log(display);
-//     for (var i = 0; i < 3; i++){
-//       var rndmPic = Math.floor(Math.random() * options.length);
-//       var placeholder = options[rndmPic];
-//       display.push(placeholder);
-//       options.splice(rndmPic, 1);
-//       options.push(recycle);
-//     }
-//   }
-// };
-// newOptions();
-// console.log(options);
