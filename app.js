@@ -13,7 +13,7 @@ function Pics (name, source, timesShown, timesClicked){
 
 }
 
-new Pics('bag', '/assets/bag.jpg', 0, 0);
+new Pics('bag', 'assets/bag.jpg', 0, 0);
 new Pics('banana', 'assets/banana.jpg', 0, 0);
 new Pics('bathroom', 'assets/bathroom.jpg', 0, 0);
 new Pics('boots', 'assets/boots.jpg', 0, 0);
@@ -39,7 +39,6 @@ var showPic = function(name, source, id){
   var data = document.createElement('td');
   table.appendChild(data);
   var pic = document.createElement('img');
-  img.ClassName = 'images';
   pic.src = placeholder.source;
   data.appendChild(pic);
 };
