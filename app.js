@@ -1,7 +1,7 @@
 'use strict';
 var display = [];
 var options = [];
-
+var recycle = [];
 function Pics (name, url, timesShown, timesClicked){
   this.name = name;
   this.url = url;
@@ -32,12 +32,40 @@ new Pics('usb', 'assets/usb.gif', 0, 0);
 new Pics('waterCan', 'assets/water-can.jpg', 0, 0);
 new Pics('wineGlass', 'assets/wine-glass.jpg', 0, 0);
 
-console.log(options);
+var showPictures = function(){
+  var getTable = document.getElementById('pictures');
+  var getRow = document.createElement('tr');
+  var setPicture = document.createElement('td');
+  setPicture.ClassName = 'options';
+  setPicture.innerText = placeholder;
+  getRow.appendChild(setPicture);
+  getTable.appendChild(getRow);
+};
 
 for (var i = 0; i < 3; i++){
   var rndmPic = Math.floor(Math.random() * options.length);
   var placeholder = options[rndmPic];
   display.push(placeholder);
   options.splice(rndmPic, 1);
+  showPictures();
 };
+
 console.log(display);
+
+var newOptions = function(){
+  for (var x = 0; x < 3; x++){
+    recycle.push(display[0]);
+    console.log(recycle);
+    display = [];
+    console.log(display);
+    for (var i = 0; i < 3; i++){
+      var rndmPic = Math.floor(Math.random() * options.length);
+      var placeholder = options[rndmPic];
+      display.push(placeholder);
+      options.splice(rndmPic, 1);
+      options.push(recycle);
+    }
+  }
+};
+newOptions();
+console.log(options);
