@@ -1,96 +1,71 @@
 'use strict';
 
-var options = [];
-var display = [];
-// var lastDisplay = [];
-var number = 25;
+var totalClicks = 0;
+var maxClicks = 5;
 
-function Pics (name, source, timesShown, timesClicked){
+function Item (name, source, id) {
   this.name = name;
   this.source = source;
-  this.id = name;
   this.timesShown = 0;
   this.timesClicked = 0;
-  options.push(this);
-
+  this.id = id;
+  itemsList.push(this);
 }
+var itemsList = [];
 
-new Pics('bag', 'assets/bag.jpg', 0, 0);
-new Pics('banana', 'assets/banana.jpg', 0, 0);
-new Pics('bathroom', 'assets/bathroom.jpg', 0, 0);
-new Pics('boots', 'assets/boots.jpg', 0, 0);
-new Pics('breakfast', 'assets/breakfast.jpg', 0, 0);
-new Pics('bubblegum', 'assets/bubblegum.jpg', 0, 0);
-new Pics('chair', 'assets/chair.jpg', 0, 0);
-new Pics('cthulhu', 'assets/cthulhu.jpg', 0, 0);
-new Pics('dogDuck', 'assets/dog-duck.jpg', 0, 0);
-new Pics('dragon', 'assets/dragon.jpg', 0, 0);
-new Pics('pen', 'assets/pen.jpg', 0, 0);
-new Pics('petSweep', 'assets/pet-sweep.jpg', 0, 0);
-new Pics('scissors', 'assets/scissors.jpg', 0, 0);
-new Pics('shark', 'assets/shark.jpg', 0, 0);
-new Pics('sweep', 'assets/sweep.png', 0, 0);
-new Pics('tauntaun', 'assets/tauntaun.jpg', 0, 0);
-new Pics('unicorn', 'assets/unicorn.jpg', 0, 0);
-new Pics('usb', 'assets/usb.gif', 0, 0);
-new Pics('waterCan', 'assets/water-can.jpg', 0, 0);
-new Pics('wineGlass', 'assets/wine-glass.jpg', 0, 0);
+var names = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
+var paths = ['assets/bag.jpg', 'assets/banana.jpg', 'assets/bathroom.jpg', 'assets/boots.jpg', 'assets/breakfast.jpg', 'assets/bubblegum.jpg', 'assets/chair.jpg', 'assets/cthulhu.jpg', 'assets/dog-duck.jpg', 'assets/dragon.jpg', 'assets/pen.jpg', 'assets/pet-sweep.jpg', 'assets/scissors.jpg', 'assets/shark.jpg', 'assets/sweep.png', 'assets/tauntaun.jpg', 'assets/unicorn.jpg', 'assets/usb.gif', 'assets/water-can.jpg', 'assets/wine-glass.jpg'];
+var ids = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg', 'usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
 
-var showPic = function(name, source, id){
-  var table = document.getElementById('pictures');
-  var data = document.createElement('td');
-  table.appendChild(data);
-  var pic = document.createElement('img');
-  pic.setAttribute('id', id);
-  pic.src = placeholder.source;
-  data.appendChild(pic);
-  var pickMe = document.getElementById(id);
-  pickMe.addEventListener('click', chosen);
-};
-
-for (var i = 0; i < 3; i++){
-  var rndmPic = Math.floor(Math.random() * options.length);
-  var placeholder = options[rndmPic];
-  display.push(placeholder);
-  display[i].timesShown += 1;
-  showPic(display[i].name, display[i].source, display[i].name);
+function createItems (){
+  for (var i = 0; i < names.length; i++){
+    new Item(names[i], paths[i], ids[i]);
+  }
 }
+createItems();
 
-var cyclePics = function(){
-  display = [];
-  for (var i = 0; i < 3; i++){
-    var rndmPic = Math.floor(Math.random() * options.length);
-    var placeholder = options[rndmPic];
-    if (placeholder.includes(display[i])){
-      var rndmPic = Math.floor(Math.random() * options.length);
+var thisRound = [];
+var lastRound = [];
+
+function makeThreeImages (){
+  for (var i = 1; i < 4; i++) {
+    var indexNum = Math.floor(Math.random() * itemsList.length);
+    if (lastRound.includes(indexNum) || thisRound.includes(indexNum)) {
+      i--;
     } else {
-      display.push(placeholder);
-      display[i].timesShown += 1;
-      showPic(display[i].name, display[i].source, display[i].name);
+      thisRound.push(indexNum);
+      itemsList[indexNum].timesShown++;
+      var linkedImage = document.getElementById('image-' + i);
+      linkedImage.setAttribute('src', itemsList[indexNum].source);
+      linkedImage.setAttribute('itemIdx', indexNum);
     }
   }
-};
+  lastRound = thisRound;
+  thisRound = [];
+}
+makeThreeImages();
 
-var numberClicked = 0;
+for (var i = 0; i < document.getElementsByClassName('clickable').length; i++) {
+  var image = document.getElementById('image-' + (i + 1));
+  image.addEventListener('click', onClick);
+}
 
-function chosen(event) {
-  console.log('hello');
-  for (var i = 0; i < options.length; i++) {
-    if (options[i].id === event.target.id && numberClicked < number){
-      options[i].timesClicked++;
-      numberClicked++;
-      cyclePics();
-    } else if (numberClicked === number) {
-      pickMe.removeEventListener('click', chosen);
-      var counter = document.getElementById('dataResult');
-      var listVotes = document.createElement('ul');
-      counter.appendChild(listVotes);
-      for (var c = 0; c < options.length; c++) {
-        var showData = document.createElement('li');
-        showData.innerText = 'You chose ' + options[c].name + options[c].timesClicked + ' times.';
-        listVotes.appendChild(showData);
-      }
-      break;
+function onClick (event){
+  var itemIdx = parseInt(event.target.getAttribute('itemIdx'));
+  var itemIWant = itemsList[itemIdx];
+  itemIWant.timesClicked++;
+  makeThreeImages();
+  totalClicks++;
+  if (totalClicks === maxClicks) {
+    for (var i = 0; i < document.getElementsByClassName('clickable').length; i++) {
+      var image = document.getElementById('image-' + (i + 1));
+      image.removeEventListener('click', onClick);
+    }
+    var list = document.getElementById('list');
+    for (var j = 0; j < itemsList.length; j++) {
+      var li = document.createElement('li');
+      li.innerText = itemsList[j].name + ' was clicked ' + itemsList[j].timesClicked + ' times';
+      list.appendChild(li);
     }
   }
 }
