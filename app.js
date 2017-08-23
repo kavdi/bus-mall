@@ -1,7 +1,8 @@
 'use strict';
 
-var display = [];
 var options = [];
+var display = [];
+// var lastDisplay = [];
 var number = 25;
 
 function Pics (name, source, timesShown, timesClicked){
@@ -40,9 +41,11 @@ var showPic = function(name, source, id){
   var data = document.createElement('td');
   table.appendChild(data);
   var pic = document.createElement('img');
-  pic.setAttribute('id', 'clickMe');
+  pic.setAttribute('id', id);
   pic.src = placeholder.source;
   data.appendChild(pic);
+  var pickMe = document.getElementById(id);
+  pickMe.addEventListener('click', chosen);
 };
 
 for (var i = 0; i < 3; i++){
@@ -52,7 +55,6 @@ for (var i = 0; i < 3; i++){
   display[i].timesShown += 1;
   showPic(display[i].name, display[i].source, display[i].name);
 }
-console.log(display);
 
 var cyclePics = function(){
   display = [];
@@ -69,18 +71,17 @@ var cyclePics = function(){
   }
 };
 
-var click = document.getElementsByTagName('img');
-click.addEventListener('click', chosen);
-
 var numberClicked = 0;
 
 function chosen(event) {
+  console.log('hello');
   for (var i = 0; i < options.length; i++) {
     if (options[i].id === event.target.id && numberClicked < number){
       options[i].timesClicked++;
       numberClicked++;
+      cyclePics();
     } else if (numberClicked === number) {
-      click.removeEventListener('click', chosen);
+      pickMe.removeEventListener('click', chosen);
       var counter = document.getElementById('dataResult');
       var listVotes = document.createElement('ul');
       counter.appendChild(listVotes);

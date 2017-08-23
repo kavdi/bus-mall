@@ -6,3 +6,10 @@ img {
   border-color: orange;
   padding: 15px;
 }
+
+body {
+  background-color: black;
+  background-image: url(busPic.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+}
