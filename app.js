@@ -1,7 +1,7 @@
 'use strict';
 
 var totalClicks = 0;
-var maxClicks = 5;
+var maxClicks = 25;
 
 function Item (name, source, id) {
   this.name = name;
