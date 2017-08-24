@@ -12,13 +12,23 @@ body {
   background-image: url(busPic.jpg);
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .pictures {
-  clear: both;
+  margin:auto;
+  width: 70%;
+  padding: 10px;
 }
 
 .data {
   background-color: white;
   opacity: 0.5;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  margin: auto;
+  padding: 20px;
 }
