@@ -61,15 +61,9 @@ function onClick (event){
       var image = document.getElementById('image-' + (i + 1));
       image.removeEventListener('click', onClick);
     }
-    // var list = document.getElementById('list');
-    // for (var j = 0; j < itemsList.length; j++) {
-    //   var li = document.createElement('li');
-    //   li.innerText = itemsList[j].name + ' was clicked ' + itemsList[j].timesClicked + ' times';
-    //   list.appendChild(li);
-    {
-      graphData();
-      var myChart = new Chart(ctx, chartOptions);
-    }
+
+    graphData();
+    var myChart = new Chart(ctx, chartOptions);
   }
 }
 
