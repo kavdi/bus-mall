@@ -1,7 +1,22 @@
 'use strict';
 
+var itemsList = [];
 var totalClicks = 0;
 var maxClicks = 25;
+
+if (localStorage.getItem('allData')) {
+  itemsList = JSON.parse(localStorage.getItem('allData'));
+} else {
+  function createItems (){
+    var names = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen','pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
+    var paths = ['assets/bag.jpg', 'assets/banana.jpg', 'assets/bathroom.jpg', 'assets/boots.jpg', 'assets/breakfast.jpg','assets/bubblegum.jpg', 'assets/chair.jpg', 'assets/cthulhu.jpg', 'assets/dog-duck.jpg', 'assets/dragon.jpg', 'assets/pen.jpg','assets/pet-sweep.jpg', 'assets/scissors.jpg', 'assets/shark.jpg', 'assets/sweep.png', 'assets/tauntaun.jpg', 'assets/unicorn.jpg','assets/usb.gif', 'assets/water-can.jpg', 'assets/wine-glass.jpg'];
+    var ids = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg','dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg','usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
+    for (var i = 0; i < names.length; i++){
+      new Item(names[i], paths[i], ids[i]);
+    }
+  }
+  createItems();
+}
 
 function Item (name, source, id) {
   this.name = name;
@@ -11,18 +26,18 @@ function Item (name, source, id) {
   this.id = id;
   itemsList.push(this);
 }
-var itemsList = [];
+// var itemsList = [];
 
-var names = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
-var paths = ['assets/bag.jpg', 'assets/banana.jpg', 'assets/bathroom.jpg', 'assets/boots.jpg', 'assets/breakfast.jpg', 'assets/bubblegum.jpg', 'assets/chair.jpg', 'assets/cthulhu.jpg', 'assets/dog-duck.jpg', 'assets/dragon.jpg', 'assets/pen.jpg', 'assets/pet-sweep.jpg', 'assets/scissors.jpg', 'assets/shark.jpg', 'assets/sweep.png', 'assets/tauntaun.jpg', 'assets/unicorn.jpg', 'assets/usb.gif', 'assets/water-can.jpg', 'assets/wine-glass.jpg'];
-var ids = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg', 'usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
-
-function createItems (){
-  for (var i = 0; i < names.length; i++){
-    new Item(names[i], paths[i], ids[i]);
-  }
-}
-createItems();
+// var names = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
+// var paths = ['assets/bag.jpg', 'assets/banana.jpg', 'assets/bathroom.jpg', 'assets/boots.jpg', 'assets/breakfast.jpg', 'assets/bubblegum.jpg', 'assets/chair.jpg', 'assets/cthulhu.jpg', 'assets/dog-duck.jpg', 'assets/dragon.jpg', 'assets/pen.jpg', 'assets/pet-sweep.jpg', 'assets/scissors.jpg', 'assets/shark.jpg', 'assets/sweep.png', 'assets/tauntaun.jpg', 'assets/unicorn.jpg', 'assets/usb.gif', 'assets/water-can.jpg', 'assets/wine-glass.jpg'];
+// var ids = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg', 'usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
+//
+// function createItems (){
+//   for (var i = 0; i < names.length; i++){
+//     new Item(names[i], paths[i], ids[i]);
+//   }
+// }
+// createItems();
 
 var thisRound = [];
 var lastRound = [];
@@ -61,15 +76,9 @@ function onClick (event){
       var image = document.getElementById('image-' + (i + 1));
       image.removeEventListener('click', onClick);
     }
-    // var list = document.getElementById('list');
-    // for (var j = 0; j < itemsList.length; j++) {
-    //   var li = document.createElement('li');
-    //   li.innerText = itemsList[j].name + ' was clicked ' + itemsList[j].timesClicked + ' times';
-    //   list.appendChild(li);
-    {
-      graphData();
-      var myChart = new Chart(ctx, chartOptions);
-    }
+    graphData();
+    var myChart = new Chart(ctx, chartOptions);
+    localStorage.setItem('allData', JSON.stringify(itemsList));
   }
 }
 
