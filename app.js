@@ -2,7 +2,7 @@
 
 var itemsList = [];
 var totalClicks = 0;
-var maxClicks = 25;
+var maxClicks = 5;
 
 if (localStorage.getItem('allData')) {
   itemsList = JSON.parse(localStorage.getItem('allData'));
@@ -26,18 +26,6 @@ function Item (name, source, id) {
   this.id = id;
   itemsList.push(this);
 }
-// var itemsList = [];
-
-// var names = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
-// var paths = ['assets/bag.jpg', 'assets/banana.jpg', 'assets/bathroom.jpg', 'assets/boots.jpg', 'assets/breakfast.jpg', 'assets/bubblegum.jpg', 'assets/chair.jpg', 'assets/cthulhu.jpg', 'assets/dog-duck.jpg', 'assets/dragon.jpg', 'assets/pen.jpg', 'assets/pet-sweep.jpg', 'assets/scissors.jpg', 'assets/shark.jpg', 'assets/sweep.png', 'assets/tauntaun.jpg', 'assets/unicorn.jpg', 'assets/usb.gif', 'assets/water-can.jpg', 'assets/wine-glass.jpg'];
-// var ids = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg', 'usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
-//
-// function createItems (){
-//   for (var i = 0; i < names.length; i++){
-//     new Item(names[i], paths[i], ids[i]);
-//   }
-// }
-// createItems();
 
 var thisRound = [];
 var lastRound = [];
@@ -79,6 +67,7 @@ function onClick (event){
     graphData();
     var myChart = new Chart(ctx, chartOptions);
     localStorage.setItem('allData', JSON.stringify(itemsList));
+    chart.rendor(ctx, chartOptions);
   }
 }
 
